@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="{% static 'blog/bootstrap.css' %}">
+</head>
+<style>
+    .post{
+        padding: 20px;
+        background: linear-gradient(120deg,blue,violet);
+        height: 120px;
+        width: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+        text-decoration: none;
+        color: black;
+        border-radius: 5px;
+        {% comment %} margin: 10px; {% endcomment %}
+    }
+    .post:hover{
+        opacity:0.8;
+        font-size: larger;
+        background: linear-gradient(240deg,blue,violet);
+    }
+    .add{
+        text-decoration: none;
+        color: black;
+        position: fixed;
+        padding: 10px;
+        border: 1px solid gray;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        width: 100px;
+        margin-left: 20px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 1px;
+    }
+    .add:hover{
+        background-color: black;
+        color: white;
+    }
+    .con{
+        margin-top: 100px;
+        margin-bottom: 200px;
+    }
+    .div-post{
+        margin: 10px;
+        padding: 0;
+        height: auto;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+    .dele{
+        color: red;
+        display: inline-block;
+        width: 50px;
+        padding: 2px;
+        border-radius: 5px;
+    }
+    .dele:hover{
+        background-color: red;
+        color: white;
+    }
+</style>
+<body>
+    <header class="h1 bg-dark text-light w-75 m-auto p-3 fixed-top rounded-bottom text-center">Blog Project - Write Any Blogs As You Wish</header>
+    <div class="container w-75 border rounded con ps-3">
+        <div class="row justify-content-start gap-3">
+    {% for post in posts %}
+        <div class="col-3 div-post">
+            <a href="{% url 'posts' post %}" class="post mb-2">{{ post.title }}</a>
+            <a href="{% url 'delete_post' post.pk %}" class="text-decoration-none dele">Delete</a>
+        </div>
+    {% empty %}
+        <p>No posts available.</p>
+    {% endfor %}
+        </div>
+    </div>
+<a href="{% url 'add_post' %}" class="add fixed-bottom">Add Post</a>
+
+</body>
+</html>
